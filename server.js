@@ -1,7 +1,7 @@
 const net = require('net');
 const tempPage = require("./tempPage.js")
 // const errorDoc = require("./404.js")
-// const heliumDoc = require("./helium.js")
+const heliumDoc = require("./helium.js")
 // const hydroDoc = require("./hydrogren.js")
 // const indexhtmlDoc = require("./styles.css.js")
 
@@ -19,16 +19,27 @@ const server = net.createServer((socket) => {
         console.log(requestLine)
         let method = requestLine[0]
         console.log(method)
-        let uriLine = requestLine[2]
-        console.log(uriLine)
+        let requestURL = requestLine[1]
+        console.log(requestURL)
 
-        console.log(Date())
+        console.log(Date() + ` ${method} ` + `${requestURL}`);
+
+        if (method === 'GET') {
+            if (requestURL === '/') {
+                socket.write(
+                    `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${}`);
+                socket.end();
+            } else if (requestURL === '/.html') {
+                socket.write()
+            }
+        }
+    }
 
 
 
         socket.write(tempPage.clientMsg);
-        socket.end();
-    });
+    socket.end();
+});
 });
 
 
