@@ -1,9 +1,10 @@
 const net = require('net');
-const tempPage = require("./tempPage.js")
-// const errorDoc = require("./404.js")
-// const heliumDoc = require("./helium.js")
-// const hydroDoc = require("./hydrogren.js")
-// const indexhtmlDoc = require("./styles.css.js")
+// const tempPage = require("./tempPage.js")
+const indexDoc = require("./htmlfiles/index.js")
+const hydroDoc = require("./htmlfiles/hydrogen.js")
+const heliumDoc = require("./htmlfiles/helium.js")
+const errorDoc = require("./htmlfiles/404.js")
+const cssDataDoc = require("./htmlfiles/styles.css.js")
 
 const clientConnections = [];
 
@@ -24,19 +25,33 @@ const server = net.createServer((socket) => {
 
         console.log(Date() + ` ${method} ` + `${requestURL}`);
 
-        // if (method === 'GET') {
-        //     if (requestURL === '/') {
-        //         socket.write(
-        //             `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${}`);
-        //         socket.end();
-        //     } else if (requestURL === '/.html') {
-        //         socket.write()
-        //     }
-        // }
-        // socket.write(tempPage.clientMsg);
-        // socket.end();
+        if (method === 'GET') {
+            switch (requestURL) {
+                case '/': socket.write(
+                    `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${indexDoc}`);
+                    socket.end();
+                    break;
+                case '/index.html': socket.write(
+                    `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${indexDoc}`);
+                    socket.end();
+                    break;
+                case '/hydrogen.html': socket.write(
+                    `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${hydroDoc}`);
+                    socket.end();
+                    break;
+                case '/helium.html': socket.write(
+                    `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${heliumDoc}`);
+                    socket.end();
+                    break;
+                default: socket.write(
+                    `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${errorDoc}`);
+                    socket.end();
+                    break;
+            }
+        }
+
     });
-    // });
+
 })
 
 
