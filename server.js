@@ -1,10 +1,9 @@
 const net = require('net');
-// const tempPage = require("./tempPage.js")
 const indexDoc = require("./htmlfiles/index.js")
 const hydroDoc = require("./htmlfiles/hydrogen.js")
 const heliumDoc = require("./htmlfiles/helium.js")
 const errorDoc = require("./htmlfiles/404.js")
-const cssDataDoc = require("./htmlfiles/styles.css.js")
+const cssDataDoc = require("./css.styles.js")
 
 const clientConnections = [];
 
@@ -29,30 +28,35 @@ const server = net.createServer((socket) => {
             switch (requestURL) {
                 case '/': socket.write(
                     `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${indexDoc}`);
-                    socket.end();
+                    socket.end;
                     break;
                 case '/index.html': socket.write(
                     `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${indexDoc}`);
-                    socket.end();
+                    socket.end;
                     break;
                 case '/hydrogen.html': socket.write(
                     `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${hydroDoc}`);
-                    socket.end();
+                    socket.end;
                     break;
                 case '/helium.html': socket.write(
                     `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${heliumDoc}`);
-                    socket.end();
+                    socket.end;
+                    break;
+                case '/css.styles.css': socket.write(
+                    `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/css; charset=utf-8\n\n${cssDataDoc}`);
+                    socket.end;
                     break;
                 default: socket.write(
                     `HTTP/1.1 200 OK\nServer: nginx/1.4.6 (Unbuntu)\nContent-Type: text/html; charset=utf-8\n\n${errorDoc}`);
-                    socket.end();
+                    socket.end;
                     break;
             }
         }
 
+
     });
 
-})
+});
 
 
 server.on('error', (err) => {
